@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html ng-app="angular_tut">
+  
+  <head>
+    <meta charset="UTF-8">
+    <title>App tutorial</title>
+    <script src="lib/angular.js"></script>
+    <script src="js/app.js"></script>
+	  <script src="js/controller/controllerTut.js"></script>
+	
+  </head>
+  
+  <body ng-controller="ControllerTut">
+
+    <hr/>
+
+    <p>Number: {{ 2 + 3 }}</p>
+    <p>Value : {{name.value}} </p>
+
+    <p>First Name : {{name.first}}</p>
+    <p>Second name : {{name.second}}</p>
+
+    <button ng-click="addTwo()">Add Two</button>
+
+    <br/>
+
+    <label>First Name : </label>
+    <input ng-model="name.first|lowercase">
+    <br/>
+    <label>Last Name : </label>
+    <input ng-model = "name.second | uppercase">
+
+    <my-directive>Hey There</my-directive>
+    
+  </body>
+  
+</html>
