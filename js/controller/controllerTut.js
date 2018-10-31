@@ -13,6 +13,12 @@ angular.module("controllerTutModule", [])
     }  
 }])
 
+.controller("ControllerTut2", ["$scope", function($scope){
+
+    $scope.secondTutorial="Second tutrails";
+    
+}])
+
 .directive("myDirective", function(){
 
     return {
