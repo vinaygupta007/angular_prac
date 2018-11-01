@@ -1,6 +1,7 @@
 
 angular.module("controllerTutModule", [])
 
+
 .controller("ControllerTut", ["$scope", "Calculations", function($scope, Calculations){
 
     $scope.name={};
