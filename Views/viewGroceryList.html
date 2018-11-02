@@ -1,0 +1,15 @@
+<div class=".col-xs-12">
+    <a href="#/addNewGroceryItem" style="margin-bottom: 10px" class="btn btn-primary btn-lg btn-block">
+        <span class="glyphicon glyphicon-plus"></span>
+        Add New Item
+    </a>
+
+    <ul class="list-group">
+        <li ng-repeat="Items in groceryItemList | orderBy: 'ItemName'" class="list-group-item text-center clearfix">
+
+            <span style="font-weight:bold"> {{Items.ItemName | uppercase}}</span>
+
+        </li>
+
+    </ul>
+</div>

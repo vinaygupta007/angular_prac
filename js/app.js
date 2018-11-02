@@ -1,7 +1,53 @@
+var app = angular.module("angular_tut", ["ngRoute"]);
+
+app.config(function($routeProvider) {
+  $routeProvider
+
+    .when("/", {
+      templateUrl: "Views/viewGroceryList.html",
+      controller: "listItem"
+    })
+    .when("/addNewGroceryItem", {
+      templateUrl: "Views/addNewGroceryItem.html",
+      controller: "ControllerTut"
+    });
+});
+
+app.controller("appName", [
+  "$scope",
+  function($scope) {
+    $scope.appTitleName = "Vinay Gupta";
+  }
+]);
+
+app.service("listService", function() {
+  var groceryService = {};
+
+  groceryService.groceryItem = [
+    { id: 1, completed: true, ItemName: "milk", date: "1/11/2018" },
+    { id: 2, completed: true, ItemName: "burfi", date: "1/11/2018" },
+    { id: 3, completed: true, ItemName: "coffee", date: "1/11/2018" },
+    { id: 4, completed: true, ItemName: "sakes", date: "1/11/2018" },
+    { id: 5, completed: true, ItemName: "ice cream", date: "1/11/2018" },
+    { id: 6, completed: true, ItemName: "chocolates", date: "1/11/2018" },
+    { id: 7, completed: true, ItemName: "waffers", date: "1/11/2018" },
+    { id: 8, completed: true, ItemName: "nothing", date: "1/11/2018" }
+  ];
+  return groceryService;
+});
+
+app.controller("listItem", [
+  "$scope",
+  "listService",
+  function($scope, listService) {
+    $scope.groceryItemList = listService.groceryItem;
+  }
+]);
+
 // var app = angular.module("angular_tut", ["ngRoute","controllerTutModule"]);
 
 // app.config(function($routeProvider){
-    
+
 //     $routeProvider
 
 //     .when("/",{
@@ -17,25 +63,3 @@
 //     });
 
 // });
-
-var app = angular.module('angular_tut',[]);
-
-app.controller("appName", ["$scope", function($scope) {
-
-    $scope.appTitleName="Vinay Gupta";
-    
-}]);
-
-app.controller("listItem", ["$scope", function($scope) {
-
-    $scope.groceryItemList=[
-        {completed:true, ItemName:"milk", date:"1/11/2018" },
-        {completed:true, ItemName:"burfi", date:"1/11/2018" },
-        {completed:true, ItemName:"coffee", date:"1/11/2018" },
-        {completed:true, ItemName:"sakes", date:"1/11/2018" },
-        {completed:true, ItemName:"ice cream", date:"1/11/2018" },
-        {completed:true, ItemName:"chocolates", date:"1/11/2018" },
-        {completed:true, ItemName:"waffers", date:"1/11/2018" },
-        {completed:true, ItemName:"nothing", date:"1/11/2018" }
-    ]
-}]);
