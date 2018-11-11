@@ -38,9 +38,13 @@ app.service("listService", function() {
 
 app.controller("listItem", [
   "$scope",
+  "$routeParams",
+  "$location",
   "listService",
-  function($scope, listService) {
+  function($scope, listService, $routeParams, $location) {
     $scope.groceryItemList = listService.groceryItem;
+
+    $scope.groceryItem = {id:7, completed: true, itemName : "Cheese", date: new Date()}
   }
 ]);
 
