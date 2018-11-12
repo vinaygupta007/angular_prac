@@ -9,7 +9,11 @@ app.config(function($routeProvider) {
     })
     .when("/addNewGroceryItem", {
       templateUrl: "Views/addNewGroceryItem.html",
-      controller: "ControllerTut"
+      controller: "listItem"
+    })
+    .when("/addNewGroceryItem/edit/:id/", {
+      templateUrl: "Views/addNewGroceryItem.html",
+      controller: "listItem"
     });
 });
 
@@ -33,6 +37,36 @@ app.service("listService", function() {
     { id: 7, completed: true, ItemName: "waffers", date: "1/11/2018" },
     { id: 8, completed: true, ItemName: "nothing", date: "1/11/2018" }
   ];
+
+  groceryService.findById = function(id) {
+    for (var item in groceryService.groceryItem) {
+      if (groceryService.groceryItem[item].id === id) {
+        return groceryService.groceryItem[item];
+      }
+    }
+  };
+
+  groceryService.creatNewId = function() {
+    if (groceryService.newId) {
+      groceryService.newId++;
+      console.log("create default method" + groceryService.newId);
+      return groceryService.newId;
+    } else {
+      var maxId = _.max(groceryService.groceryItem, function(entry) {
+        return entry.id;
+      });
+
+      groceryService.newId = maxId.id + 1;
+      console.log("create second method" + groceryService.newId);
+      return groceryService.newId;
+    }
+  };
+
+  groceryService.save = function(entry) {
+    entry.id = groceryService.creatNewId();
+    groceryService.groceryItem.push(entry);
+  };
+
   return groceryService;
 });
 
@@ -41,10 +75,24 @@ app.controller("listItem", [
   "$routeParams",
   "$location",
   "listService",
-  function($scope, listService, $routeParams, $location) {
+  function($scope, $routeParams, $location, listService) {
     $scope.groceryItemList = listService.groceryItem;
 
-    $scope.groceryItem = {id:7, completed: true, itemName : "Cheese", date: new Date()}
+    if (!$routeParams.id) {
+      $scope.groceryItem = {
+        id: 0,
+        completed: true,
+        ItemName: "",
+        date: new Date()
+      };
+    } else {
+      $scope.groceryItem = listService.findById(parseInt($routeParams.id));
+    }
+
+    $scope.save = function() {
+      listService.save($scope.groceryItem);
+      $location.path("/");
+    };
   }
 ]);
 
