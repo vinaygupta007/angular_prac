@@ -20,7 +20,7 @@ app.config(function($routeProvider) {
 app.controller("appName", [
   "$scope",
   function($scope) {
-    $scope.appTitleName = "Vinay Gupta";
+    $scope.appTitleName = "Vaibhav chopra";
   }
 ]);
 
@@ -63,8 +63,15 @@ app.service("listService", function() {
   };
 
   groceryService.save = function(entry) {
-    entry.id = groceryService.creatNewId();
-    groceryService.groceryItem.push(entry);
+    var updatedItem = groceryService.findById(entry.id);
+    if (updatedItem) {
+      updatedItem.completed = entry.completed;
+      updatedItem.ItemName = entry.ItemName;
+      updatedItem.date = entry.date;
+    } else {
+      entry.id = groceryService.creatNewId();
+      groceryService.groceryItem.push(entry);
+    }
   };
 
   return groceryService;
@@ -86,7 +93,9 @@ app.controller("listItem", [
         date: new Date()
       };
     } else {
-      $scope.groceryItem = listService.findById(parseInt($routeParams.id));
+      $scope.groceryItem = _.clone(
+        listService.findById(parseInt($routeParams.id))
+      );
     }
 
     $scope.save = function() {
@@ -95,23 +104,3 @@ app.controller("listItem", [
     };
   }
 ]);
-
-// var app = angular.module("angular_tut", ["ngRoute","controllerTutModule"]);
-
-// app.config(function($routeProvider){
-
-//     $routeProvider
-
-//     .when("/",{
-//         templateUrl:"Views/TutFirst.html",
-//         controller:"ControllerTut"
-//     })
-//     .when("/TutSecond",{
-//         templateUrl:"Views/TutSecond.html",
-//         controller:"ControllerTut"
-//     })
-//     .otherwise({
-//         redirectTo:"/"
-//     });
-
-// });
