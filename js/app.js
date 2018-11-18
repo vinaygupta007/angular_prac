@@ -74,6 +74,12 @@ app.service("listService", function() {
     }
   };
 
+  groceryService.removeItem = function(entry) {
+    var itemIndex = groceryService.groceryItem.indexOf(entry);
+
+    groceryService.groceryItem.splice(itemIndex, 1);
+  };
+
   return groceryService;
 });
 
@@ -102,5 +108,16 @@ app.controller("listItem", [
       listService.save($scope.groceryItem);
       $location.path("/");
     };
+
+    $scope.removeItem = function(entry) {
+      listService.removeItem(entry);
+    };
   }
 ]);
+
+app.directive("myItemDirective", function() {
+  return {
+    restrict: "E",
+    templateUrl: "/Views/groceryDirective.html"
+  };
+});
